@@ -11,5 +11,5 @@ group :development, :test do
   gem 'pry-rails'
   gem 'thin'
 
-  gem 'rspec'
+  gem 'rspec-rails'
 end

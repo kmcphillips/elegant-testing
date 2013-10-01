@@ -4,3 +4,11 @@
 require File.expand_path('../config/application', __FILE__)
 
 ElegantTesting::Application.load_tasks
+
+require 'rake/testtask'
+
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/**/*test.rb']
+  t.verbose = true
+end
