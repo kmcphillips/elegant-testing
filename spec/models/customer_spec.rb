@@ -20,7 +20,7 @@ describe Customer do
     end
 
     it "should be true if the customer does not have a #full_name" do
-      customer.should_receive(:full_name).and_return('')
+      expect(customer).to receive(:full_name).and_return('')
       expect(customer).to be_anonymous
     end
   end
