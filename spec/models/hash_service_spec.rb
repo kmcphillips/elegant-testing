@@ -6,8 +6,18 @@ describe HashService do
   let(:response_hash){ {"md5" => md5} }
 
   describe "#md5" do
-    it "should get the implementation from the real web" do
-      expect(hash_service.md5("pie")).to eq(md5)
+    context "real web" do
+      before(:all) do
+        WebMock.allow_net_connect!
+      end
+
+      after(:all) do
+        WebMock.disable_net_connect!
+      end
+
+      it "should get the implementation from the real web" do
+        expect(hash_service.md5("pie")).to eq(md5)
+      end
     end
 
     context "HTTParty" do
@@ -30,9 +40,13 @@ describe HashService do
       end
     end
 
-    context "fakeweb" do
-      it "should be tested" do
-        pending
+    context "webmock" do
+      it "should be not care about the HTTP library implementation" do
+        stub_request(:get, 'md5.jsontest.com/.json?text=pie')
+          .to_return(body: response_hash.to_json, headers: {'Content-Type' => 'application/json'})
+
+        expect(hash_service.md5_faraday("pie")).to eq(md5)
+        expect(hash_service.md5_httparty("pie")).to eq(md5)
       end
     end
   end
