@@ -24,6 +24,7 @@ group :development, :test do
   gem 'spork-rails'
   gem 'guard-spork'
   gem 'guard-rspec'
+  gem 'terminal-notifier-guard'
 
   gem 'webmock'
 end

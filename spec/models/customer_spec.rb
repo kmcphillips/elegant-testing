@@ -24,4 +24,23 @@ describe Customer do
       expect(customer).to be_anonymous
     end
   end
+
+  describe "#phone" do
+    let(:customer){ FactoryGirl.build(:customer, phone_number: "2222222", phone_area_code: "204")}
+
+    it "should combine the phone number and area code with formatting" do
+      expect(customer.phone).to eq("(204) 222-2222")
+    end
+
+    it "should skip the area code" do
+      customer.phone_area_code = ''
+      expect(customer.phone).to eq("222-2222")
+    end
+
+    it "should not display anything if the phone number is not present" do
+      customer.phone_number = ''
+      expect(customer.phone).to be_nil
+    end
+  end
+
 end

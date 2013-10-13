@@ -11,4 +11,13 @@ class Customer < ActiveRecord::Base
     [first_name, last_name].reject(&:blank?).join(" ")
   end
 
+  def phone
+    if phone_number.present?
+      result = "" 
+      result << "(#{ phone_area_code }) " if phone_area_code.present?
+      result << "#{ phone_number.insert(3, '-') }"
+      result
+    end
+  end
+
 end
