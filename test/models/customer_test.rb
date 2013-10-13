@@ -13,7 +13,13 @@ class CustomerTest < ActiveSupport::TestCase
     assert_equal "Jones", customers(:jones).full_name
   end
 
-  def test_anonymous
+  def test_not_anonymous
     assert !@customer.anonymous?
+  end
+
+  def test_anonymous
+    @customer.first_name = ''
+    @customer.last_name = ''
+    assert @customer.anonymous?
   end
 end

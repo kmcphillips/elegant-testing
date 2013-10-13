@@ -18,6 +18,11 @@ describe Customer do
     it "should not be anonymous if it has a #full_name" do
       expect(customer).to_not be_anonymous
     end
+
+    it "should be anonymous if it does not have a #full_name" do
+      customer.should_receive(:full_name).and_return('')
+      expect(customer).to be_anonymous
+    end
   end
 
 
