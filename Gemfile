@@ -19,5 +19,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
 
+  gem 'guard'
+  gem 'spork', '1.0.0rc4'
+  gem 'spork-rails'
+  gem 'guard-spork'
+  gem 'guard-rspec'
+
   gem 'webmock'
 end
