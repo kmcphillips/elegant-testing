@@ -22,7 +22,7 @@ describe HashService do
 
     context "HTTParty" do
       it "should mock out the library as expected" do
-        HTTParty.should_receive(:get).with("http://md5.jsontest.com/.json?text=pie").and_return(response_hash)
+        expect(HTTParty).to receive(:get).with("http://md5.jsontest.com/.json?text=pie").and_return(response_hash)
         expect(hash_service.md5_httparty("pie")).to eq(md5)
       end
     end
@@ -32,10 +32,10 @@ describe HashService do
       let(:config){ double }
 
       it "should mock out the library as expected" do
-        Faraday.should_receive(:new).with(url: 'http://md5.jsontest.com').and_yield(config).and_return(connection)
-        config.should_receive(:response).with(:json)
-        config.should_receive(:adapter).with(Faraday.default_adapter)
-        connection.should_receive(:get).with("/.json", text: "pie").and_return(double(body: response_hash))
+        expect(Faraday).to receive(:new).with(url: 'http://md5.jsontest.com').and_yield(config).and_return(connection)
+        expect(config).to receive(:response).with(:json)
+        expect(config).to receive(:adapter).with(Faraday.default_adapter)
+        expect(connection).to receive(:get).with("/.json", text: "pie").and_return(double(body: response_hash))
         expect(hash_service.md5_faraday("pie")).to eq(md5)
       end
     end
